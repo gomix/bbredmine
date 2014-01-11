@@ -10,6 +10,7 @@ require 'rest-client'
 # Necesitamos un arreglo de Redmine a los que conectarnos para recuperar las peticiones
 
 class Redmine
+  include RestClient 
   attr_accessor 'url'
   attr_accessor 'apikey'
 end
