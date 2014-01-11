@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Bbredmine::Application.config.secret_key_base = '2edf6c59fc94425bd1516f11948f1020e356b406a4e394c5b971e1dfb70214d85e491a3f7fc4f78070237b8f42bdfdf612cdea697095d33d49a1008493e80be1'
+Bbredmine::Application.config.secret_key_base = 'cf5f007734c214b589b1974583aff2fe8ce57d04cf25fc3b1b0fb7f13b11ed5fbccfab5308300e5e51ec8213dc89d5c356c362eb2468aaaabba1e42b71026e6f'
