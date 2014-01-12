@@ -1,0 +1,8 @@
+# Configuración de mis Redmine para Acceso API
+gomix:
+  apikey: b899118d094e085b63658425dbba65629d619333
+  base_url: http://gomix.proyectofedora.org
+
+rpmdev:
+  apikey: 9d935b9acc4da28a8c6ad457271fd1b69e6be305
+  base_url: http://rpmdev.proyectofedora.org
