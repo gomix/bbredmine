@@ -5,6 +5,7 @@
 require 'rest-client'
 require 'json'
 require 'yaml'
+require 'erb'
 
 # Clase derivada de RestClient::Resource para consultas al API REST de Redmine
 class Redmine < RestClient::Resource
@@ -38,8 +39,12 @@ class Redmine < RestClient::Resource
   end
 
   def issues
+    # TODO
     # Método para imprimir en cli inicial
-    issues = get_issues["issues"]
+    issues = JSON.parse(get_issues)["issues"]
+    dir = File.expand_path(File.join(File.dirname(__FILE__), "."))
+    template = ERB.new(File.read(dir + "/issues.erb"))
+    puts template.result(binding)
   end
 end
 
