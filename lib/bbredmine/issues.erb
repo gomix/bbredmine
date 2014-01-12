@@ -1,0 +1,15 @@
+Redmine: <%= "url" %>
+Login Name: <%= "login_name" %>
+Peticiones:
+<% issues.each do |issue| 2%>
+<%= issue["id"] %> - <%=issue["subject"] %>
+Asignado a = <%= issue["assigned_to"]["name"] %>
+Autor de la peticion = <%= issue["author"]["name"] %>
+Fecha de creación = <%= issue["created_on"] %>
+Prioridad = <%= issue["priority"]["name"] %>
+Proyecto = <%= issue["project"]["name"] %>
+Estatus = <%= issue["status"]["name"] %>
+Descripcion
+<%= issue["description"] %>
+URL del issue = http://gomix.proyectofedora.org/issues/<%= issue["id"] %> 
+<% end %>
