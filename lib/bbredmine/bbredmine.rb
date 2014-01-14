@@ -43,7 +43,7 @@ class Redmine < RestClient::Resource
     # Método para imprimir en cli inicial
     issues = JSON.parse(get_issues)["issues"]
     dir = File.expand_path(File.join(File.dirname(__FILE__), "."))
-    template = ERB.new(File.read(dir + "/issues.erb"))
+    template = ERB.new(File.read(dir + "/issues.erb"),nil,"-")
     puts template.result(binding)
   end
 end
