@@ -13,16 +13,18 @@ class Redmine < RestClient::Resource
   attr_accessor 'base_url'
   
   def initialize(base_url: nil , apikey: nil, name: nil)
-    @base_url = base_url
-    @apikey = apikey
-    @name = name
+    @base_url = base_url.to_s
+    @apikey = apikey.to_s
+    @name = name.to_s
     super(base_url)
     set_current_user
   end
 
   def get_issues
     @url = @base_url + '/issues.json'
-    get(:params => {:assigned_to_id => redmine_user_id, :key => @apikey})
+    get(:accept => :json ,
+        :content_type => 'application/json', 
+        :params => {:assigned_to_id => redmine_user_id, :key => @apikey})
   end
 
   def redmine_user_id
@@ -39,13 +41,14 @@ class Redmine < RestClient::Resource
   end
 
   def issues
-    # TODO
-    # Método para imprimir en cli inicial
+    # Método inicial para imprimir en stdout
     issues = JSON.parse(get_issues)["issues"]
     dir = File.expand_path(File.join(File.dirname(__FILE__), "."))
     template = ERB.new(File.read(dir + "/issues.erb"),nil,"-")
     puts template.result(binding)
   end
-end
 
-#puts gomix_redmine.get(:params => { :key => 'b899118d094e085b63658425dbba65629d619333', :priority => 'urgent'})
+  def total_issues
+    JSON.parse(get_issues)["total_count"]
+  end 
+end
