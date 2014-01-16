@@ -1,4 +1,4 @@
-require 'minitest'
+require 'minitest/unit'
 module MiniTestAssertions
   def self.extended(base)
     base.extend(MiniTest::Assertions)
