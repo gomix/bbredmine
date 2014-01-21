@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Redmine: <%= name %>                  
+URL: <%= base_url %>
+Login Name: <%= redmine_login_name %> 
+Total Peticiones Reportadas : <%= issues.size %>
+-------------------------------------------------------------------------------
+Salida Tabular Simplificada (un Redmine a la vez)
+-------------------------------------------------------------------------------
+Proyecto | Asunto | Creacion | Prioridad | Estado | URL
+-------------------------------------------------------------------------------
+<% issues.each do |issue| -%>
+<%= issue["project"]["name"] %> | <%=issue["subject"] %> | <%= DateTime.parse(issue["created_on"]).strftime("%b/%-d/%Y") %> | <%= issue["priority"]["name"] %> | <%= issue["status"]["name"] %> | <%= base_url %>/issues/<%= issue["id"] %> 
+<% end -%>
+-------------------------------------------------------------------------------
