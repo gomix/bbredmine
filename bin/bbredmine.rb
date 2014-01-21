@@ -25,7 +25,7 @@ OptionParser.new do |opts|
 
     options[:lista] = false
     opts.on("-l", "--lista", "Salida tipo lista de peticiones") do
-      options[:tabular] = true
+      options[:lista] = true
     end
 
 end.parse!
@@ -40,12 +40,15 @@ def imprimir_tabular
   Redmine.redmines.each { |redmine| p redmine.tabular }
 end
 
-def imprimir_peticiones
+def imprimir_lista
   init_redmines
   Redmine.redmines.each { |redmine| p redmine.list }
 end
 
-
 if options[:tabular] then 
   imprimir_tabular 
+end
+
+if options[:lista] then 
+  imprimir_lista 
 end
