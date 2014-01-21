@@ -12,32 +12,40 @@ require '../lib/bbredmine/bbredmine.rb'
 # Procesamiento de opciones en línea de comandos
 options = {}
 OptionParser.new do |opts|
-    opts.banner = "Uso: bbredmine.rb [options]"
+    opts.banner = "Uso: bbredmine.rb [opciones]"
     opts.on("-h", "--help", "Ayuda en línea") do
     	puts opts
     	exit
     end
+
+    options[:tabular] = false
+    opts.on("-t", "--tabular", "Salida tabular de peticiones por redmine") do
+      options[:tabular] = true
+    end
+
+    options[:lista] = false
+    opts.on("-l", "--lista", "Salida tipo lista de peticiones") do
+      options[:tabular] = true
+    end
+
 end.parse!
 
-# Carga de la configuración
-config = YAML.load_file('../config/bbredmine.yml')
-redmines = []
+def init_redmines
+  Redmine.load_config             # Carga de configuración 
+  Redmine.init_redmines           # Instanciación de los redmines
+end
 
-# Instanciación de la configuración
-config.each_pair { |key,values|
-  begin  
-    redmine = Redmine.new(apikey: values['apikey'], base_url: values['base_url'], name: key)
-    redmines << redmine
-  rescue Exception => e
-    puts "No se pudo instanciar Redmine : #{key}."
-    puts e.message
-  end  
-}
+def imprimir_tabular
+  init_redmines
+  Redmine.redmines.each { |redmine| p redmine.tabular }
+end
 
-# Imprimamos algo.
-# Pero queremos plantillas para poder controlar mejor la presentación
-redmines.each { |redmine|
-  p redmine.issues
-}
+def imprimir_peticiones
+  init_redmines
+  Redmine.redmines.each { |redmine| p redmine.list }
+end
 
 
+if options[:tabular] then 
+  imprimir_tabular 
+end
